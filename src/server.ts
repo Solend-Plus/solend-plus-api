@@ -1,12 +1,16 @@
 import express from "express";
-// import cors from "cors";
+import cors from "cors";
 
-// import questionRoutes from "./api/routes/question";
+import apyRoutes from "./api/routes/apy";
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// app.use("/question", questionRoutes);
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+app.options("*", cors());
+
+app.use("/apy", apyRoutes);
 
 export default app;
