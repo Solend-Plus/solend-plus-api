@@ -1,5 +1,6 @@
 import { Model, Schema, model } from "mongoose";
 import { IApyRecord } from "../interfaces/index";
+import dateRangeToParts from "../utils/dateRangeToParts";
 
 interface IApy {
   timestamp: Schema.Types.Date;
@@ -62,20 +63,47 @@ ApySchema.statics.insertNewApys = function (
   }
 };
 
-ApySchema.statics.getApiesBySymbol = function (
+ApySchema.statics.getApiesBySymbol = async function (
   symbol: string,
   from: string,
   to: string,
-  interval = 1,
+  interval = 24,
 ) {
   try {
-    const fetchedRecords = this.aggregate([
+    const getApiesBySymbolPipeline: any = [
       {
         $match: {
           timestamp: {
             $gte: new Date(from),
             $lte: new Date(to),
           },
+        },
+      },
+      {
+        $project: {
+          timestamp: {
+            year: {
+              $year: {
+                date: "$timestamp",
+              },
+            },
+            month: {
+              $month: {
+                date: "$timestamp",
+              },
+            },
+            day: {
+              $dayOfMonth: {
+                date: "$timestamp",
+              },
+            },
+            hour: {
+              $hour: {
+                date: "$timestamp",
+              },
+            },
+          },
+          data: 1,
         },
       },
       {
@@ -92,7 +120,30 @@ ApySchema.statics.getApiesBySymbol = function (
           },
         },
       },
-    ]);
+    ];
+
+    if (interval !== 1) {
+      const { year, month, day, hour } = dateRangeToParts(from, to, interval);
+
+      getApiesBySymbolPipeline.splice(2, 0, {
+        $match: {
+          "timestamp.year": {
+            $in: year,
+          },
+          "timestamp.month": {
+            $in: month,
+          },
+          "timestamp.day": {
+            $in: day,
+          },
+          "timestamp.hour": {
+            $in: hour,
+          },
+        },
+      });
+    }
+
+    const fetchedRecords = await this.aggregate(getApiesBySymbolPipeline);
 
     return fetchedRecords;
   } catch (error) {

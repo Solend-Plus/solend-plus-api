@@ -16,11 +16,22 @@ mongoose
     process.exit(1);
   })
   .then(async () => {
-    await updateApys();
+    const now = new Date();
+    const utcMinutes = now.getUTCMinutes();
+    const utcSeconds = now.getUTCSeconds();
 
-    setInterval(async () => {
-      await updateApys();
-    }, INTERVAL * 1000);
+    // wait for x seconds to have round hours in recorded timestamps
+    // e.g 16:00, 3:00 or 00:00
+    // this prevents timestamps such as 2:42 or 3:01
+    const waitForSeconds =
+      ((60 - utcMinutes) % 60) * 60 + ((60 - utcSeconds) % 60);
+
+    setTimeout(() => {
+      updateApys();
+      setInterval(async () => {
+        await updateApys();
+      }, INTERVAL * 1000);
+    }, waitForSeconds * 1000);
 
     app.listen(PORT, () => {
       console.log(`listening on port: ${PORT}`);

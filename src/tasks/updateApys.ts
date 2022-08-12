@@ -18,4 +18,6 @@ export default async function updateApys() {
   }));
 
   await ApyModel.insertNewApys(currentTimeStamp, newApyData);
+
+  console.log(`Updated APYs in ${currentTimeStamp} successfully`);
 }
