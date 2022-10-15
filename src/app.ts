@@ -26,12 +26,12 @@ mongoose
     const waitForSeconds =
       ((60 - utcMinutes) % 60) * 60 + ((60 - utcSeconds) % 60);
 
-    // setTimeout(() => {
-    //   updateApys();
-    //   setInterval(async () => {
-    //     await updateApys();
-    //   }, INTERVAL * 1000);
-    // }, waitForSeconds * 1000);
+    setTimeout(() => {
+      updateApys();
+      setInterval(async () => {
+        await updateApys();
+      }, INTERVAL * 1000);
+    }, waitForSeconds * 1000);
 
     app.listen(PORT, () => {
       console.log(`listening on port: ${PORT}`);
