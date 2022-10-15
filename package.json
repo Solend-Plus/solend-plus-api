@@ -4,11 +4,11 @@
   "description": "",
   "main": "dist/app.js",
   "scripts": {
-    "start": "tsc && node dist/app.js",
-    "start:dev": "tsc && npx nodemon",
+    "start": "npx tsc && node dist/app.js",
+    "start:dev": "npx tsc && npx nodemon",
     "lint": "eslint . --ext .ts",
     "clean": "rm -rf dist && mkdir dist",
-    "build": "npm run clean && tsc",
+    "build": "npm run clean && npx tsc",
     "prepare": "husky install"
   },
   "lint-staged": {
