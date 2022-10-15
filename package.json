@@ -4,11 +4,11 @@
   "description": "",
   "main": "dist/app.js",
   "scripts": {
-    "start": "node_modules/typescript/bin/tsc && node dist/app.js",
+    "start": "tsc && node dist/app.js",
     "start:dev": "tsc && npx nodemon",
     "lint": "eslint . --ext .ts",
     "clean": "rm -rf dist && mkdir dist",
-    "build": "npm run clean && node_modules/typescript/bin/tsc",
+    "build": "npm run clean && tsc",
     "prepare": "husky install"
   },
   "lint-staged": {
@@ -52,5 +52,8 @@
     "lodash": "^4.17.21",
     "mongodb": "^4.8.1",
     "mongoose": "^6.5.1"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }
