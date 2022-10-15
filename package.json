@@ -6,6 +6,7 @@
   "scripts": {
     "start": "npx tsc && node dist/app.js",
     "start:dev": "npx tsc && npx nodemon",
+    "postinstall": "npx tsc",
     "lint": "eslint . --ext .ts",
     "clean": "rm -rf dist && mkdir dist",
     "build": "npm run clean && npx tsc",
