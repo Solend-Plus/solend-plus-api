@@ -4,12 +4,12 @@
   "description": "",
   "main": "dist/app.js",
   "scripts": {
-    "start": "npx tsc && node dist/app.js",
-    "start:dev": "npx tsc && npx nodemon",
-    "postinstall": "npx tsc",
+    "start": "tsc && node dist/app.js",
+    "start:dev": "tsc && npx nodemon",
+    "postinstall": "tsc",
     "lint": "eslint . --ext .ts",
     "clean": "rm -rf dist && mkdir dist",
-    "build": "npm run clean && npx tsc",
+    "build": "npm run clean && tsc",
     "prepare": "husky install"
   },
   "lint-staged": {
@@ -40,7 +40,8 @@
     "lint-staged": "^13.0.3",
     "nodemon": "^2.0.19",
     "prettier": "2.7.1",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "tsc": "^2.0.4"
   },
   "dependencies": {
     "@solana/web3.js": "^1.50.1",
