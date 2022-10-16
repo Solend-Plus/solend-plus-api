@@ -33,7 +33,7 @@ mongoose
       }, INTERVAL * 1000);
     }, waitForSeconds * 1000);
 
-    app.listen(PORT, () => {
+    app.listen({ PORT }, () => {
       console.log(`listening on port: ${PORT}`);
     });
   });

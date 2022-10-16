@@ -4,9 +4,8 @@
   "description": "",
   "main": "dist/app.js",
   "scripts": {
-    "start": "npx tsc && node dist/app.js",
+    "start": "node dist/app.js",
     "start:dev": "npx tsc && npx nodemon",
-    "postinstall": "tsc",
     "lint": "eslint . --ext .ts",
     "clean": "rm -rf dist && mkdir dist",
     "build": "npm run clean && npx tsc",
